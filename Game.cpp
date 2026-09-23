@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-int Game::newFieldRelativeValue(MoveDirection move) {
+int Game::newFieldRelativeValue(const MoveDirection move) {
     switch (move) {
         case MoveDirection::forward:
             return -30;
@@ -22,16 +22,27 @@ int Game::newFieldRelativeValue(MoveDirection move) {
 }
 
 Game::Game() {
-    fruit = getIndex(13, 13);
+    fruit = getIndex(8, 8);
     snakeInfo = std::make_pair(getIndex(14, 14), getIndex(15, 14));
     map[getIndex(14, 14)] = true; map[getIndex(15, 14)] = true;
+    snakeSize = 2;
 }
 
 void Game::print() {
+    for (int i = 0; i < mapSize; i++) {
+        if (i % 30 == 0)
+            std::cout << std::endl;
 
+        if (map[i])
+            std::cout << 'S';
+        else if (i == fruit)
+            std::cout << 'F';
+        else
+            std::cout << ' ';
+    }
 }
 
-bool Game::move(MoveDirection direction) {
+bool Game::move(const MoveDirection direction) {
     snakeInfo.first += newFieldRelativeValue(direction);
     map[snakeInfo.first] = true;
     moveHistory.push(direction);

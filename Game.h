@@ -6,6 +6,7 @@
 #define SNAKE_GAME_H
 #include <bitset>
 #include <queue>
+#include <iostream>
 
 #include "MoveDirection.h"
 
@@ -13,7 +14,7 @@ using Snake = std::pair<int, int>;
 
 constexpr int mapSize = 30 * 30;
 
-int getIndex(int row, int col) {
+inline int getIndex(int row, int col) {
     return 30 * row + col;
 }
 
@@ -25,7 +26,7 @@ class Game {
     std::queue<MoveDirection> moveHistory;
     int snakeSize;
 
-    int newFieldRelativeValue(MoveDirection move);
+    static int newFieldRelativeValue(MoveDirection move);
 
 public:
     Game();
