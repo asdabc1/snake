@@ -5,8 +5,11 @@
 #ifndef SNAKE_GAME_H
 #define SNAKE_GAME_H
 #include <bitset>
+#include <queue>
 
-#include "Snake.h"
+#include "MoveDirection.h"
+
+using Snake = std::pair<int, int>;
 
 constexpr int mapSize = 30 * 30;
 
@@ -17,10 +20,17 @@ int getIndex(int row, int col) {
 class Game {
     std::bitset<mapSize> map;
     int fruit;
+
     Snake snakeInfo;
+    std::queue<MoveDirection> moveHistory;
+    int snakeSize;
+
+    int newFieldRelativeValue(MoveDirection move);
 
 public:
+    Game();
     void print();
+    bool move(MoveDirection direction);
 };
 
 
