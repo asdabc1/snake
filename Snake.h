@@ -9,6 +9,7 @@
 
 enum class MoveDirection {
     forward,
+    backward,
     left,
     right
 };
@@ -17,6 +18,12 @@ class Snake {
     std::pair<int, int> position;
     int length;
     std::queue<MoveDirection> moveHistory;
+
+    static int moveValueOnMovement(MoveDirection move);
+
+public:
+    Snake();
+    void move(MoveDirection direction, bool lengthen = false);
 };
 
 
