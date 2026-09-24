@@ -7,6 +7,8 @@
 #include <bitset>
 #include <queue>
 #include <iostream>
+#include <random>
+#include <ranges>
 
 #include "MoveDirection.h"
 
@@ -26,9 +28,14 @@ class Game {
     std::queue<MoveDirection> moveHistory;
     int snakeSize;
 
+    std::mt19937 rng{std::random_device{}()};
+    std::uniform_int_distribution<int> dist{0, mapSize - 1};
+
     static int newFieldRelativeValue(MoveDirection move);
 
+
 public:
+    void newFruit();
     Game();
     void print();
     bool move(MoveDirection direction);

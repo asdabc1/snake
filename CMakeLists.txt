@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.3)
 project(snake)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(snake main.cpp
         Game.cpp

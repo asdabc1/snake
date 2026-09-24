@@ -21,6 +21,21 @@ int Game::newFieldRelativeValue(const MoveDirection move) {
     return 0;
 }
 
+void Game::newFruit() {
+    if (snakeSize == 900)
+        return;
+    //C++17
+    /*int newFruitIndexCandidate = dist(rng);
+    while (map[newFruitIndexCandidate])
+        newFruitIndexCandidate++;
+
+    fruit = newFruitIndexCandidate;*/
+
+    //C++20
+    auto emptyFields = std::views::iota(0, mapSize) | std::views::filter([this](int i){return !map.test(i);});
+    std::ranges::sample(emptyFields, &fruit, 1, rng);
+}
+
 Game::Game() {
     fruit = getIndex(8, 8);
     snakeInfo = std::make_pair(getIndex(14, 14), getIndex(15, 14));
@@ -49,7 +64,7 @@ bool Game::move(const MoveDirection direction) {
 
     if (snakeInfo.first == fruit) {
         snakeSize++;
-        // and generate a new fruit
+        newFruit();
     }
     else {
         map[snakeInfo.second] = false;
