@@ -20,6 +20,10 @@ inline int getIndex(int row, int col) {
     return 30 * row + col;
 }
 
+inline std::pair<int, int> getRowCol(int index) {
+    return {index / 30, index % 30};
+}
+
 class Game {
     std::bitset<mapSize> map;
     int fruit;
@@ -29,7 +33,6 @@ class Game {
     int snakeSize;
 
     std::mt19937 rng{std::random_device{}()};
-    std::uniform_int_distribution<int> dist{0, mapSize - 1};
 
     static int newFieldRelativeValue(MoveDirection move);
 

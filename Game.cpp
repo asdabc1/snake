@@ -58,6 +58,13 @@ void Game::print() {
 }
 
 bool Game::move(const MoveDirection direction) {
+    auto pos = getRowCol(snakeInfo.first);
+    if ((pos.first == 0 && direction == MoveDirection::forward) ||
+        (pos.first == 29 && direction == MoveDirection::backward) ||
+        (pos.second == 0 && direction == MoveDirection::left) ||
+        (pos.second == 29 && direction == MoveDirection::right))
+        return false; //attemp to move out of bounds
+
     snakeInfo.first += newFieldRelativeValue(direction);
     map[snakeInfo.first] = true;
     moveHistory.push(direction);
@@ -72,5 +79,5 @@ bool Game::move(const MoveDirection direction) {
         moveHistory.pop();
     }
 
-    return true; //will return false if move is invalid - not yet implemented
+    return true;
 }
