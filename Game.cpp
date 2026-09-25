@@ -36,6 +36,10 @@ void Game::newFruit() {
     std::ranges::sample(emptyFields, &fruit, 1, rng);
 }
 
+void Game::endGame() {
+
+}
+
 Game::Game() {
     fruit = getIndex(8, 8);
     snakeInfo = std::make_pair(getIndex(14, 14), getIndex(15, 14));
@@ -44,9 +48,13 @@ Game::Game() {
 }
 
 void Game::print() {
+    for (int i = 0; i < 32; i++)
+        std::cout << '_';
+    std::cout << std::endl << '|';
+
     for (int i = 0; i < mapSize; i++) {
-        if (i % 30 == 0)
-            std::cout << std::endl;
+        if (i % 30 == 0 && i != 0 && i != mapSize - 1)
+            std::cout << '|' << std::endl << '|';
 
         if (map[i])
             std::cout << 'S';
@@ -55,6 +63,10 @@ void Game::print() {
         else
             std::cout << ' ';
     }
+
+    std::cout << '|' << std::endl;
+    for (int i = 0; i < 32; i++)
+        std::cout << '_';
 }
 
 bool Game::move(const MoveDirection direction) {
@@ -66,6 +78,9 @@ bool Game::move(const MoveDirection direction) {
         return false; //attemp to move out of bounds
 
     snakeInfo.first += newFieldRelativeValue(direction);
+    if (map[snakeInfo.first] == true)
+        return false;
+
     map[snakeInfo.first] = true;
     moveHistory.push(direction);
 
@@ -80,4 +95,39 @@ bool Game::move(const MoveDirection direction) {
     }
 
     return true;
+}
+
+void Game::takeInput(char input) {
+    input = static_cast<char>(std::tolower(input));
+
+    //wasd for movement, p for printing
+    if (input != 'w' && input != 'a' && input != 's' && input != 'd' && input != 'p')
+        return; //ignores invalid input
+
+    switch (input) {
+        case 'w':
+            if (!move(MoveDirection::forward))
+                endGame();
+            break;
+
+        case 's':
+            if (!move(MoveDirection::backward))
+                endGame();
+            break;
+
+        case 'd':
+            if (!move(MoveDirection::right))
+                endGame();
+            break;
+
+        case 'a':
+            if (!move(MoveDirection::left))
+                endGame();
+            break;
+
+        case 'p':
+            system("clear");
+            print();
+            break;
+    }
 }

@@ -36,12 +36,15 @@ class Game {
 
     static int newFieldRelativeValue(MoveDirection move);
 
+    bool move(MoveDirection direction);
+    void newFruit();
+
+    void endGame();
 
 public:
-    void newFruit();
     Game();
     void print();
-    bool move(MoveDirection direction);
+    void takeInput(char input);
 };
 
 
