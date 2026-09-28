@@ -2,5 +2,8 @@
 
 int main() {
     Game game;
-    game.print();
+
+    while (game.checkGameInProgress()) {
+        game.takeInput(std::cin.get());
+    }
 }

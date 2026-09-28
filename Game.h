@@ -32,6 +32,8 @@ class Game {
     std::queue<MoveDirection> moveHistory;
     int snakeSize;
 
+    bool gameInProgress;
+
     std::mt19937 rng{std::random_device{}()};
 
     static int newFieldRelativeValue(MoveDirection move);
@@ -45,6 +47,10 @@ public:
     Game();
     void print();
     void takeInput(char input);
+
+    [[nodiscard]] bool checkGameInProgress() const {return gameInProgress;}
+    [[nodiscard]] int getSnakeSize() const {return snakeSize;}
+    [[nodiscard]] Snake getSnakeInfo() const {return snakeInfo;}
 };
 
 

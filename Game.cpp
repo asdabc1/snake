@@ -37,7 +37,9 @@ void Game::newFruit() {
 }
 
 void Game::endGame() {
-
+    std::system("cls");
+    std::cout <<"Game over!";
+    gameInProgress = false;
 }
 
 Game::Game() {
@@ -45,6 +47,8 @@ Game::Game() {
     snakeInfo = std::make_pair(getIndex(14, 14), getIndex(15, 14));
     map[getIndex(14, 14)] = true; map[getIndex(15, 14)] = true;
     snakeSize = 2;
+    gameInProgress = true;
+    moveHistory.push(MoveDirection::forward);
 }
 
 void Game::print() {
@@ -126,7 +130,7 @@ void Game::takeInput(char input) {
             break;
 
         case 'p':
-            system("clear");
+            system("cls");
             print();
             break;
     }
