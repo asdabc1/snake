@@ -16,4 +16,4 @@ add_executable(snake_tests tests.cpp
         Game.h
         MoveDirection.h)
 
-target_link_libraries(snake_tests PRIVATE GTest::gtest_main)
+target_link_libraries(snake_tests PRIVATE GTest::gmock_main)

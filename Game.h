@@ -45,12 +45,14 @@ class Game {
 
 public:
     Game();
-    void print();
+    virtual void print();
     void takeInput(char input);
+    virtual ~Game() = default;
 
     [[nodiscard]] bool checkGameInProgress() const {return gameInProgress;}
     [[nodiscard]] int getSnakeSize() const {return snakeSize;}
     [[nodiscard]] Snake getSnakeInfo() const {return snakeInfo;}
+    [[nodiscard]] const std::bitset<mapSize>& getMap() const {return map;}
 };
 
 
